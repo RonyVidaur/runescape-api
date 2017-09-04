@@ -13,7 +13,6 @@ public class Scoreboard {
 
     @Id
     @Column(name = "Id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private String description;
@@ -23,10 +22,11 @@ public class Scoreboard {
 
     public Scoreboard() {}
 
-    public Scoreboard(String name, String description, List<Player> players) {
+    public Scoreboard(long id, String name, String description, List<Player> players) {
         this.name = name;
         this.description = description;
         this.players = players;
+        this.id = id;
     }
 
     public void setCategoryName(String name) {
@@ -35,6 +35,10 @@ public class Scoreboard {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -51,7 +55,7 @@ public class Scoreboard {
 
     public List<Player> getPlayers() {
 
-        return players.stream().sorted((p1,p2) -> Integer.compare(p2.getLevel(), p1.getLevel()))
+        return players.stream().sorted((p1,p2) -> Integer.compare(p2.getXp(), p1.getXp()))
                 .collect(Collectors.toList());
     }
 

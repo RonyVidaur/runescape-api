@@ -25,8 +25,9 @@ public class ScoreboardController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = ("/scoreboards"))
-    public void addScoreboard(@RequestBody Scoreboard scoreboard) {
+    public String addScoreboard(@RequestBody Scoreboard scoreboard) {
         scoreboardService.addScoreboard(scoreboard);
+        return "Success";
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = ("/scoreboards/{id}"))

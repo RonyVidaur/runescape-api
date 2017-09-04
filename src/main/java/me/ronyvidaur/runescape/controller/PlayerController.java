@@ -14,19 +14,24 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
+//    TODO impletent all of the cases where things can go wrong
+
     @RequestMapping(method = RequestMethod.GET, value = ("/players"))
     public List<Player> getAllPlayers(@PathVariable long scoreboardId) {
         return playerService.getAllPlayers(scoreboardId);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = ("/players"))
-    public void addPlayer(@RequestBody Player player) {
-        playerService.addPlayer(player);
+    @RequestMapping(method = RequestMethod.POST, value = ("/"))
+    public Player addPlayer(@RequestBody Player player, @PathVariable long scoreboardId) {
+        Player newPlayer = new Player(player.getName(), player.getLevel(), scoreboardId, player.getXp());
+        playerService.addPlayer(newPlayer);
+        return newPlayer;
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = ("/players/{id}"))
     public void removePlayer(@PathVariable long id) {
         playerService.removePlayer(id);
+
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = ("/players"))

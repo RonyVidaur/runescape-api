@@ -19,25 +19,26 @@ public class Player {
     private int playerLevel;
     private int xp;
 
+
     public Player() {}
 
     public Player(String name, int playerLevel, Long scoreboardId, int xp) {
         this.name = name;
         this.playerLevel = playerLevel;
-        this.scoreboard = scoreboard;
         this.xp = xp;
+        scoreboard = new Scoreboard(scoreboardId, "", "", null);
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setLevel(int playerLevel) {
-        this.playerLevel = playerLevel;
+    public void setXp(int xp) {
+        this.xp = xp;
     }
 
-    public long getId() {
-        return Id;
+    public void setLevel(int playerLevel) {
+        this.playerLevel = playerLevel;
     }
 
     public String getName() {
@@ -48,11 +49,19 @@ public class Player {
         return playerLevel;
     }
 
-    public void setXp(int xp) {
-        this.xp = xp;
-    }
-
     public int getXp() {
         return xp;
     }
+
+    public long getId() {
+        return Id;
+    }
+
+    @Override
+    public String toString() {
+        return "name: " + this.name;
+    }
+
+
+
 }
