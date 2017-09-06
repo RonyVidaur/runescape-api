@@ -21,19 +21,7 @@ public class ScoreboardService {
         return scoreboards;
     }
 
-    public Scoreboard getScoreboardById(long id) {
+    public Scoreboard getScoreboard(long id) {
         return scoreboardRepository.findOne(id);
-    }
-
-    public void addScoreboard(Scoreboard scoreboard) {
-        scoreboardRepository.save(scoreboard);
-    }
-
-    public void removeScoreboard(long id) {
-        scoreboardRepository.delete(id);
-    }
-
-    public void updateScoreboard(Scoreboard scoreboard) {
-        scoreboardRepository.save(scoreboard);
     }
 }

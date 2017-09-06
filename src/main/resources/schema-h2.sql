@@ -32,5 +32,6 @@ CREATE TABLE Players (
     player_level INT not null,
     xp INT not null,
     scoreboard_id INT not null,
+    UNIQUE (name),
     FOREIGN KEY (scoreboard_id) REFERENCES Scoreboards(Id)
 );

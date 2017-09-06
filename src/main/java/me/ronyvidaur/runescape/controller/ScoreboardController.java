@@ -2,8 +2,11 @@ package me.ronyvidaur.runescape.controller;
 
 
 import me.ronyvidaur.runescape.entity.Scoreboard;
+import me.ronyvidaur.runescape.exception.NotFoundException;
 import me.ronyvidaur.runescape.service.ScoreboardService;
+import me.ronyvidaur.runescape.util.ResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,28 +18,18 @@ public class ScoreboardController {
     private ScoreboardService scoreboardService;
 
     @RequestMapping(method = RequestMethod.GET, value = ("/scoreboards"))
-    public List<Scoreboard> getAllScoreboards() {
-        return scoreboardService.getAllScoreboards();
+    public ResponseEntity getAllScoreboards() {
+       return ResponseEntity.ok().body(ResponseBuilder.build(scoreboardService.getAllScoreboards(),"success","GET","/scoreboards"));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = ("/scoreboards/{id}"))
-    public Scoreboard getScoreboardById(@PathVariable long id) {
-        return scoreboardService.getScoreboardById(id);
+    public ResponseEntity getScoreboard(@PathVariable long id) throws NotFoundException {
+        if(scoreboardService.getScoreboard(id) != null){
+            return ResponseEntity.ok().body(ResponseBuilder.build(scoreboardService.getScoreboard(id),"success","get", "scoreboards/" + id));
+        } else {
+            throw new NotFoundException(id);
+        }
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = ("/scoreboards"))
-    public String addScoreboard(@RequestBody Scoreboard scoreboard) {
-        scoreboardService.addScoreboard(scoreboard);
-        return "Success";
-    }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = ("/scoreboards/{id}"))
-    public void removeScoreboard(@PathVariable long id) {
-        scoreboardService.removeScoreboard(id);
-    }
-
-    @RequestMapping(method = RequestMethod.PUT,  value = ("/scoreboards/{id}"))
-    public void updateScoreboard(@RequestBody Scoreboard scoreboard, @PathVariable long id) {
-        scoreboardService.updateScoreboard(scoreboard);
-    }
 }
