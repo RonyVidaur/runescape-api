@@ -1,7 +1,6 @@
 package me.ronyvidaur.runescape.service;
 
 import me.ronyvidaur.runescape.entity.Player;
-import me.ronyvidaur.runescape.exception.NotFoundException;
 import me.ronyvidaur.runescape.repository.PlayerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +19,7 @@ public class PlayerService {
     private PlayerRepository playerRepository;
 
     public List<Player> getAllPlayers(long scoreboardId) {
-        logger.info("getting all players in the scoreboard with ID: " + scoreboardId);
+        logger.info("getting all players in the scoreboard with ID: %s", scoreboardId);
         List<Player> players = new ArrayList<>();
         playerRepository.findByScoreboardId(scoreboardId)
                 .stream()
@@ -32,28 +31,27 @@ public class PlayerService {
 
 
     public Player addPlayer(Player player) {
-        logger.info("Saving player in database: [" + player + "]");
+        logger.info("Saving player in database: [%s]", player);
         return playerRepository.save(player);
     }
 
-    public boolean removePlayer(long id) throws NotFoundException {
+    public boolean removePlayer(long id)  {
         if (playerRepository.exists(id)) {
             playerRepository.delete(id);
-            logger.info("Succesfully deleted player with Id: " + id);
+            logger.info("Successfully deleted player with Id: %s", id);
             return true;
         } else {
-            logger.error("Failed to delete player with Id: " + id + " it does not exist");
+            logger.error("Failed to delete player with Id: %s +  it does not exist", id);
             return false;
         }
     }
 
     public void updatePlayer(Player player) {
         playerRepository.save(player);
-        logger.info("successfuly updated player" + player);
+        logger.info("successfully updated player %s", player);
     }
 
     public Player getPlayer(long id) {
-        logger.info("looking for player with ID: " + id);
         return playerRepository.findOne(id);
     }
 }

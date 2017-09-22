@@ -36,8 +36,6 @@ public class PlayerController {
     @RequestMapping(method = RequestMethod.POST, value = ("/players"))
     public ResponseEntity addPlayer(@RequestBody Player player, @PathVariable long scoreboardId) throws SQLException {
         Player newPlayer = new Player(player.getName(), player.getLevel(), scoreboardId, player.getXp());
-        Player other;
-        other = playerService.addPlayer(newPlayer);
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseBuilder.build(newPlayer,"success","POST", "scoreboards/" + scoreboardId + "/players"));
     }
 

@@ -19,12 +19,7 @@ import java.sql.SQLException;
 @ControllerAdvice
 public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
-//    @ExceptionHandler(value = {IllegalArgumentException.class, IllegalStateException.class, NullPointerException.class})
-//    protected ResponseEntity<Object> handleConflict(RuntimeException ex, HttpServletRequest request) {
-//        String bodyOfResponse = "ILLEGAL STATEMENT " +" " + request.getPathInfo()  + " "+ ex;
-////        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
-//    }
-private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerController.class);
+
 
 
     @ExceptionHandler({DataIntegrityViolationException.class, SQLException.class})
